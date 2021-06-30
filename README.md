@@ -18,6 +18,7 @@ or use the trigger event to catch an entity
 TriggerEvent('fx-distance:client:AddEntity',entity)
 to stop casting use /fxdx
 ```
+https://gyazo.com/f3686f17bc197c8ec2342bc25906f954
 
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
