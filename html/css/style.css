@@ -1,0 +1,43 @@
+body {
+    background: none !important;
+  }
+  
+  #app {
+     display:none;
+    font-size: 20px;
+    padding: 25px;
+    color: white;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgb(44, 44, 44);
+    height: 400px;
+    width: 400px;
+    border: 2px solid aliceblue;
+    border-radius: 7px;
+    
+  }
+  
+  button {
+    background-color: aliceblue;
+    padding: 5px;
+    
+  }
+  .Close{
+    position:relative;
+    left:20vh ;
+  }
+  #progressbar {
+    display: none;
+    position: fixed;
+    color: white;
+    left: 50%;
+    bottom:0%;
+    transform: translate(-50%, -50%);
+    background-color: rgb(44, 44, 44);
+    height: 40px;
+    width: 300px;
+    border: 2px solid aliceblue;
+    border-radius: 7px;
+  }
