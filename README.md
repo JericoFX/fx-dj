@@ -10,7 +10,7 @@ Drop the resource  and don't change the name (if you change the name remember to
 
 Put the link of youtube on the input field under the Volumen Screen text.
 
-
+Start PolyZone and xsound first!
 ## Usage
 
 ```lua
