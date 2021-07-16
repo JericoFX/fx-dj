@@ -1,4 +1,5 @@
 QBCore = nil
+xSound = exports.xsound
 Citizen.CreateThread(function()
     while QBCore == nil do
         TriggerEvent("QBCore:GetObject", function(obj)
@@ -9,63 +10,105 @@ Citizen.CreateThread(function()
 end)
 local ready = true
 local display = false
-
-RegisterNetEvent('fx-tool:client:SetData')
-AddEventHandler('fx-tool:client:SetData', function(data)
-    GetReady(data)
-end)
-RegisterNUICallback("exit", function(data)
-    ready = false
-end)
-RegisterNetEvent('fx-tool:client:exit')
-AddEventHandler('fx-tool:client:exit', function()
+local Data = {}
+RegisterNetEvent('fx-dj:client:OpenMenu')
+AddEventHandler('fx-dj:client:OpenMenu', function()
     SendNUIMessage({
-        type = "exit"
+        data = "open"
     })
+    SetNuiFocus(true, true)
 end)
 
-function GetReady(data)
-    Citizen.CreateThread(function()
-        local v1
-        local v3
-        while ready do
-            local Player = GetEntityCoords(PlayerPedId())
-            if data.Optional == true then
-                v1 = vector3(data[1], data[2], Player[3])
-            else
-                v1 = vector3(data[1], data[2], data[3])
-            end
+RegisterNUICallback("GetMusic", function(data)
+    TriggerServerEvent("fx-dj:server:GetMusic", data)
+end)
 
-            local v2 = #(Player - v1)
-
-            SendNUIMessage({
-                type = "ProgressData",
-                coords = v2
-            })
-            Wait(500)
+RegisterNetEvent('fx-dj:client:GetMusic')
+AddEventHandler('fx-dj:client:GetMusic', function(data)
+    local pos = GetEntityCoords(PlayerPedId())
+    local SongName = tostring(data.name)
+    local Volumen = tonumber(data.vol)
+   
+    if data.tipo == "Start" then
+        StartSong(SongName, data.track, pos)
+    elseif data.tipo == "Pause" then
+        PauseSong(SongName)
+    elseif data.tipo == "Resume" then
+        ResumeSong(SongName)
+    elseif data.tipo == "Volumen" then
+        if Volumen > 0.0 and Volumen < 1.0 then
+            SetVolumen(SongName, Volumen)
         end
-    end)
+    elseif data.tipo == "Stop" then
+        StopSong(SongName)
+    end
+end)
+
+function StartSong(song, track, position)
+    xSound:PlayUrlPos(song, track, 0.5, position, false)
+    xSound:Distance(song, 30)
+    if not xSound:isDynamic(song) then
+        xSound:setSoundDynamic(song, true)
+    end
+
 end
-RegisterNetEvent('fx-distance:client:AddEntity')
-AddEventHandler('fx-distance:client:AddEntity', function(entity)
-    GetDataEntity(entity)
-end)
-function GetDataEntity(entity)
-    if entity > 0 then
-        while ready do
-            local Player = GetEntityCoords(PlayerPedId())
-            local coords = GetEntityCoords(entity)
-            local v2 = #(Player - coords)
-            SendNUIMessage({
-                type = "ProgressData",
-                coords = v2
-            })
-
-            Wait(500)
-        end
+function PauseSong(song)
+    if xSound:isPlaying(song) then
+        xSound:Pause(song)
+    end
+end
+function ResumeSong(song)
+    if xSound:isPaused(song) then
+        xSound:Resume(song)
+    end
+end
+function SetVolumen(song, volumen)
+    if xSound:isPlaying(song) then
+        xSound:setVolume(song, volumen)
+    end
+end
+function StopSong(song)
+    if xSound:isPlaying(song) or xSound:isPaused(song) then
+        xSound:fadeOut(1000)
+        Wait(1000)
+        xSound:Destroy(song)
     end
 end
 
+RegisterNUICallback("Exit", function(data)
+    SetNuiFocus(false, false)
+end)
+local isIn = false
+Citizen.CreateThread(function()
+    AddTextEntry("press_to_menu_dj", "Press ~INPUT_TALK~ to open the DJ MIXER")
+
+    for k,v in ipairs(Config.Zones) do
+     
+        local djfx = BoxZone:Create(v.coords, 3.0, 5.0, {
+            name=k.."zone",
+        minZ = v.minZ,
+        maxZ = v.maxZ,
+            debugPoly=true,
+        })
+        djfx:onPointInOut(BoxZone.getPlayerPosition, function(isPointInside, point)
+            if isPointInside then
+            isIn = true
+            DisplayHelpTextThisFrame("press_to_menu_dj")
+            else
+            isIn = false
+            end
+        end)
+        
+    end
+end)
+
+
+RegisterKeyMapping('+OpenDJMixer', 'Open Dj Mixer', 'keyboard', 'e')
+RegisterCommand('+OpenDJMixer', function()
+if isIn then
+TriggerEvent('fx-dj:client:OpenMenu')
+end
+end)
 
 function tprint(tbl, indent)
     if not indent then
@@ -83,3 +126,10 @@ function tprint(tbl, indent)
         end
     end
 end
+
+
+RegisterCommand("JericoFX", function(source,args)  
+
+    print(GetEntityCoords(PlayerPedId()))
+
+end, false)

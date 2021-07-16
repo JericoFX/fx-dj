@@ -1,43 +1,113 @@
-body {
-    background: none !important;
-  }
-  
-  #app {
-     display:none;
-    font-size: 20px;
-    padding: 25px;
-    color: white;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: rgb(44, 44, 44);
-    height: 400px;
-    width: 400px;
-    border: 2px solid aliceblue;
-    border-radius: 7px;
-    
-  }
-  
-  button {
-    background-color: aliceblue;
-    padding: 5px;
-    
-  }
-  .Close{
-    position:relative;
-    left:20vh ;
-  }
-  #progressbar {
-    display: none;
-    position: fixed;
-    color: white;
-    left: 50%;
-    bottom:0%;
-    transform: translate(-50%, -50%);
-    background-color: rgb(44, 44, 44);
-    height: 40px;
-    width: 300px;
-    border: 2px solid aliceblue;
-    border-radius: 7px;
-  }
+.background {
+  display: none;
+  position: relative;
+  width: 64rem;
+  height: 48rem;
+}
+.disc {
+  position: absolute;
+  width: 23.063rem;
+  height: 23.063rem;
+  left: 19.5rem;
+  top: 18.438rem;
+}
+.volumen {
+  position: absolute;
+  width: 2rem;
+  height: 2.125rem;
+  left: 45.313rem;
+  top: 35.313rem;
+}
+.play {
+  position: absolute;
+  width: 4.063rem;
+  height: 4rem;
+  left: 13.813rem;
+  top: 40.963rem;
+  filter: grayscale(50%);
+}
+.play:hover {
+  filter: hue-rotate(90deg);
+}
+.next {
+  position: absolute;
+  width: 1.688rem;
+  height: 1.688rem;
+  left: 16.125rem;
+  top: 32.75rem;
+  filter: grayscale(100%);
+}
+.next:hover {
+  filter: grayscale(0%);
+}
+.back {
+  position: absolute;
+  width: 1.688rem;
+  height: 1.688rem;
+  left: 13.938rem;
+  top: 32.75rem;
+  filter: grayscale(100%);
+}
+.back:hover {
+  filter: grayscale(0%);
+}
+.pantalla {
+  position: absolute;
+  width: 16.938rem;
+  height: 9.25rem;
+  left: 22.563rem;
+  top: 4.219rem;
+}
+.cue {
+  position: absolute;
+  width: 4.063rem;
+  height: 4.063rem;
+  left: 13.813rem;
+  top: 35.813rem;
+  filter: grayscale(100%);
+}
+.cue:hover {
+  filter: grayscale(0%);
+}
+.Markee {
+  position: absolute;
+  width: 220px;
+  overflow: hidden;
+  font-family: 'Orbitron', serif;
+  left: 23rem;
+  color: blue;
+  font-size: 1.3rem;
+  top: 7rem;
+}
+.Info {
+  position: absolute;
+  width: 220px;
+  overflow: hidden;
+  font-family: 'Orbitron', serif;
+  left: 23rem;
+  color: blue;
+  font-size: 1.3rem;
+  top: 9rem;
+}
+.input {
+  position: absolute;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  appearance: none;
+  display: inline-block;
+  width: 18%;
+  background: black;
+  border: 1px solid #D9D9D9;
+  border-top: 0px solid #C0C0C0;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  -moz-border-radius: 1px;
+  -webkit-border-radius: 1px;
+  border-radius: 6px;
+  font-size: 15px;
+  color: #404040;
+  outline: none #9CBAE2;
+  top: 12rem;
+  left: 25.3rem;
+}
