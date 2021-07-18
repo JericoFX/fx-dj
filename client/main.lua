@@ -76,7 +76,7 @@ function StopSong(song)
 end
 
 RegisterNUICallback("Exit", function(data)
-    SetNuiFocus(false, false)
+    CloseMenu()
 end)
 local isIn = false
 Citizen.CreateThread(function()
@@ -96,13 +96,16 @@ Citizen.CreateThread(function()
             DisplayHelpTextThisFrame("press_to_menu_dj")
             else
             isIn = false
+CloseMenu()
             end
         end)
         
     end
 end)
 
-
+function CloseMenu() 
+SetNuiFocus(false, false)
+end
 RegisterKeyMapping('+OpenDJMixer', 'Open Dj Mixer', 'keyboard', 'e')
 RegisterCommand('+OpenDJMixer', function()
 if isIn then
